@@ -12,9 +12,11 @@ if(!verifyToken){
     return res.status(400).json({message:" user does not have valid token"})
 }
 req.userId = verifyToken.userId;
+next();
 
     }
     catch(error){
+         return res.status(500).json({message: `isAuth error ${error}`})
     }
 }
-/// 1 hr 24 min
+export default isAuth;
