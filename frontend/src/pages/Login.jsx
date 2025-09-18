@@ -4,15 +4,43 @@ import google from '../assets/gogglelogo.jpeg'
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
+import axios from 'axios';
+import { serverURL } from '../App';
+import { toast } from 'react-toastify';
 
 
 function Login() {
 const [show , setShow]= useState(false)
+const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+  const [loading, setLoading] = useState(false);  
 const navigate = useNavigate();
+
+const handleLogin = async () => {
+  setLoading(true);
+  try {
+    const result = await axios.post(serverURL + '/api/auth/login', {
+      email,
+      password
+    }, { withCredentials: true });
+    console.log(result.data);
+    setLoading(false);
+    navigate('/');
+    toast.success("Login Successful");
+    navigate('/');
+  } catch (error) {
+    console.error(error);
+    setLoading(false);
+    toast.error(error.response.data.message);
+
+  }
+}
+
   return (
     <div className='bg-[#dddbdb] w-[100vw] h-[100vh] flex items-center justify-center '>  
-    
-    <form  className='w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex'>
+    <form  className='w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex' onSubmit={(e) => { e.preventDefault() }}>
 {/* left div */}
 
 
@@ -30,7 +58,7 @@ const navigate = useNavigate();
 
 
     <label htmlFor="name" className='font-semibold'>Name</label>
-    <input type="text" id="name" className='border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px ] 'placeholder='EMAIL'/>
+    <input type="text" id="name" className='border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px ] 'placeholder='EMAIL' onChange={(e) => setEmail(e.target.value)} value={email}/>
 
 </div>
 
@@ -39,7 +67,7 @@ const navigate = useNavigate();
 
 
     <label htmlFor="password" className='font-semibold'>Password</label>
-    <input id='password' type={ show ? 'text' : 'password'} className='border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px ] 'placeholder='YOUR PASSWORD'/>
+    <input id='password' type={ show ? 'text' : 'password'} className='border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px ] 'placeholder='YOUR PASSWORD' onChange={(e) => setPassword(e.target.value)} value={password}/>
 { !show ? 
 <IoEyeOutline className='absolute w-[20px] h-[20px] cursor-pointer right-[5%] bottom-[10%]' onClick={() => setShow(prev=>!prev)} />:
 <IoEye  className='absolute w-[20px] h-[20px] cursor-pointer right-[5%] bottom-[10%]' onClick={() => setShow(prev=>!prev)} /> }
@@ -50,11 +78,12 @@ const navigate = useNavigate();
 
 
 {/* submit button */}
-<button className='w-[80%] h-[40px] bg-black text-white rounded-2xl cursor-pointer flex items-center justify-center rounded-[5px]'>
-   Login
+<button className='w-[80%] h-[40px] bg-black text-white rounded-2xl cursor-pointer flex items-center justify-center rounded-[5px]' onClick={handleLogin} disabled={loading}>
+   {loading ? <ClipLoader size={30} color={'white'}/> : "Login"}
 </button>
+<span className='text-[13px] cursor-pointer text-[#585757]'>Forgot your Password?</span>
 <div className='w-[80%] flex items-center gap-2'>
-<div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
+    <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
 <div className='w-[50%] text-[15px]  text-[#6f6f6f] flex items-center justify-center'>Or Continue</div>
 <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
 </div>
