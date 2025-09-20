@@ -7,10 +7,11 @@ import Login from './pages/Login'
 
    export const serverURL = 'http://localhost:8000'
 import {ToastContainer} from 'react-toastify'
+import { get } from 'mongoose'
 
 function App() {
 
-
+getCurrentUser();
   return (
   <>
     <ToastContainer/>

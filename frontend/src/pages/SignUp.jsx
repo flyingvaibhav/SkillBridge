@@ -8,6 +8,8 @@ import axios from 'axios';
 import { serverURL } from '../App';
 import { toast } from 'react-toastify';
 import {ClipLoader} from 'react-spinners'
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../redux/userSlice';
 
 function SignUp() {
 
@@ -19,6 +21,7 @@ function SignUp() {
     const [role, setRole] = useState('student'); // Default role is 'student'
 
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch(setUserData(result.data));
 
 const handleSignUp = async () => {
  setLoading(true);
