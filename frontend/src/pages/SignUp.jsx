@@ -21,7 +21,7 @@ function SignUp() {
     const [role, setRole] = useState('student'); // Default role is 'student'
 
     const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch(setUserData(result.data));
+    const dispatch = useDispatch();
 
 const handleSignUp = async () => {
  setLoading(true);
@@ -37,6 +37,7 @@ try{
     }
     , { withCredentials: true });
     console.log(result.data);
+    dispatch(setUserData(result.data));
     setLoading(false);
 
     navigate('/');

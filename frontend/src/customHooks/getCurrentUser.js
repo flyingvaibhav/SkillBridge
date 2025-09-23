@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { serverURL } from '../App'
 import { setUserData } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 const getCurrentUser = () => {
 const dispatch = useDispatch();
