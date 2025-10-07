@@ -60,7 +60,7 @@ const handleLogin = async () => {
 <div className='flex flex-col gap-1 w-[80%] items-start justify-center px-3'>
 
 
-    <label htmlFor="name" className='font-semibold'>Name</label>
+    <label htmlFor="name" className='font-semibold'>E-Mail</label>
     <input type="text" id="name" className='border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px ] 'placeholder='EMAIL' onChange={(e) => setEmail(e.target.value)} value={email}/>
 
 </div>

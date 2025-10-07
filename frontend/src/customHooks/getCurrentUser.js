@@ -10,7 +10,7 @@ const dispatch = useDispatch();
  useEffect(() => {
     const fetchUser = async () => {
       try {
-        const result = await axios.get(serverURL + '/api/user/getcurrentuser', { withCredentials: true });
+        const result = await axios.get(serverURL + '/api/user/getCurrentUser', { withCredentials: true });
         dispatch(setUserData(result.data));
         {
         }      } catch (error) {

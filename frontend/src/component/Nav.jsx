@@ -1,5 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.png'
+import { IoPersonCircle } from 'react-icons/io5'
+
 function Nav() {
   return (
     <div>
@@ -8,6 +10,11 @@ function Nav() {
 <div className='lg:w-[20%] w-[40%] lg:p1-[50px] ' >
   <img src={logo} alt="" className='w-[60px] rounded-[5px] border-2 border-white' />
    </div>
+ 
+ <div  className='w-[30%] lg:flex items-center justify-center gap-4'>
+  <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer'/>
+ </div>
+
    </div>
 
     </div>
