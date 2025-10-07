@@ -48,7 +48,7 @@ return res.status(201).json(user)
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("LOGIN ATTEMPT:", email, password);
+  
     let user = await User.findOne({ email });
     if (!user) {
       console.log("❌ No user found with email:", email);
@@ -68,7 +68,7 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    console.log("✅ Login success:", email);
+   
     return res.status(200).json(user);
   } catch (error) {
     console.error("Login error:", error);
