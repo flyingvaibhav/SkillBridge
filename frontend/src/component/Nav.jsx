@@ -1,20 +1,22 @@
-import React from 'react'
+import React, { use } from 'react'
 import logo from '../assets/logo.png'
 import { IoPersonCircle } from 'react-icons/io5'
-import { useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { serverURL } from '../App';
-import { setUserData } from '../redux/userSlice';
+import { setUserData } from '../redux/userSlice'; 
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+
 
 function Nav() {
 const {userData} = useSelector((state) => state.user);
 const navigate = useNavigate();
 const dispatch = useDispatch();
+const [show, setShow] = useState(false);
 
-const handleLogOut = () => async() => {
+const handleLogOut =  async() => {
   try {
     const result= await axios.get(serverURL + "/api/auth/logout", {
       withCredentials: true,
@@ -29,10 +31,12 @@ const handleLogOut = () => async() => {
     
 
   
+
   }
 }
   return (
 
+    
     <div>
    <div className='w-[100%] h-[70px] fixed top-0 px-[20px] py-[10px] flex justify-between items-center bg-[#00000047] z-10'>
 
@@ -41,24 +45,21 @@ const handleLogOut = () => async() => {
    </div>
  
  <div  className='w-[30%] lg:flex items-center justify-center gap-4'>
-  { !userData && <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer'/>}
+  { !userData && <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer' onClick={()=> setShow(prev=>!prev)}/>}
 
-{ userData && <div className='w-[50px] h-[50px] rounded-full  flex items-center justify-center text-[20px] text-white border-2 bg-black border-white cursor-pointer'>
+{ userData && <div className='w-[50px] h-[50px] rounded-full  flex items-center justify-center text-[20px] text-white border-2 bg-black border-white cursor-pointer'  onClick={()=> setShow(prev=>!prev)}>
   {userData?.name.slice(0,1).toUpperCase()}
-
-
 </div>}
 
-
-
-
-
  { userData?.role ==='eduactor' && <div className='px-[20px] py-[10px] border-2 border-white text-white bg-[#121213] rounded-[10px] text-[18px] font-light cursor-pointer '> Dashboard</div>}
- { !userData ? <span className='px-[20px] py-[10px] border-2 border-white text-white bg-[#141718] rounded-[10px] text-[18px] font-light cursor-pointer  bg-[#000000d5]'  onClick={()=>navigate('/login')}>Login</span>:
-  <span className='px-[20px] py-[10px] border-2 border-white text-white bg-[#161a1b] rounded-[10px] text-[18px] font-light cursor-pointer ' onClick={handleLogOut}> LogOut</span>}
-
+ { !userData ?<span className='px-[20px] py-[10px] border-2 border-white text-white bg-[#141718] rounded-[10px] text-[18px] font-light cursor-pointer  bg-[#000000d5]'  onClick={()=>navigate('/login')}>Login</span>:
+  <span className='px-[20px] py-[10px]   text-black bg-white rounded-[10px] shadow-black text-[18px]  cursor-pointer ' onClick={handleLogOut}> LogOut</span>}
+ { show && <div className='absolute top-[110%] right-[15%] flex items-center flex-col justify-center gap-2 text-[16px] rounded-md bg-[white] px-[15px] py[10px] border-[2px] border-[black] hover:border-white hover:text-white cursor-pointer hover:bg-black'>
+  <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>My Profile</span>
+  <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'> My Courses</span>
+ </div>}
   
- </div>
+ </div> 
 
    </div>
 
