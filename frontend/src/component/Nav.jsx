@@ -8,6 +8,7 @@ import { serverURL } from '../App';
 import { setUserData } from '../redux/userSlice'; 
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 
 function Nav() {
@@ -44,7 +45,7 @@ const handleLogOut =  async() => {
   <img src={logo} alt="" className='w-[60px] rounded-[5px] border-2 border-white' />
    </div>
  
- <div  className='w-[30%] lg:flex items-center justify-center gap-4'>
+ <div  className='w-[30%] lg:flex items-center justify-center gap-4 hidden'>
   { !userData && <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer' onClick={()=> setShow(prev=>!prev)}/>}
 
 { userData && <div className='w-[50px] h-[50px] rounded-full  flex items-center justify-center text-[20px] text-white border-2 bg-black border-white cursor-pointer'  onClick={()=> setShow(prev=>!prev)}>
@@ -58,9 +59,11 @@ const handleLogOut =  async() => {
   <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>My Profile</span>
   <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'> My Courses</span>
  </div>}
-  
- </div> 
-
+ 
+ </div>
+ 
+  <RxHamburgerMenu className='lg:hidden w-[50px] h-[50px] fill-black cursor-pointer' onClick={()=> setShow(prev=>!prev)}/>
+<div className='fixed top'></div>
    </div>
 
     </div>
