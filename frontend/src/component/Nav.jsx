@@ -16,6 +16,8 @@ const {userData} = useSelector((state) => state.user);
 const navigate = useNavigate();
 const dispatch = useDispatch();
 const [show, setShow] = useState(false);
+const [showHam, setShowHam] = useState(false);
+
 
 const handleLogOut =  async() => {
   try {
@@ -29,6 +31,7 @@ const handleLogOut =  async() => {
   
     console.log(error);
     toast.error(error.response.data.message);
+
     
 
   
@@ -59,13 +62,13 @@ const handleLogOut =  async() => {
   <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>My Profile</span>
   <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'> My Courses</span>
  </div>}
- 
  </div>
  
-  <RxHamburgerMenu className='lg:hidden w-[50px] h-[50px] fill-black cursor-pointer' onClick={()=> setShow(prev=>!prev)}/>
-<div className='fixed top'></div>
+  <RxHamburgerMenu className='lg:hidden w-[50px] h-[50px] fill-black cursor-pointer' onClick={()=> setShowHam(prev=>!prev)}/>
+<div className={`fixed top-0 w-[100vw] h-[100vh] bg-[#000000d5] flex items-center justify-center flex-col z-10 gap-5 z-10 lg:hidden ${showHam ?"translate-0":"-translate-x-[100vw]"} transition-transform duration-300`}>
    </div>
 
+    </div>
     </div>
   )
 }
